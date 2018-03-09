@@ -1,0 +1,25 @@
+PREFIX r: <http://ja.dbpedia.org/resource/>
+PREFIX o: <http://dbpedia.org/ontology/>
+
+select   *  where {
+ {
+  r:伊集院光 o:wikiPageWikiLink ?o .
+  ?o o:wikiPageWikiLink r:分度器
+ }
+ UNION
+ {
+  r:伊集院光 o:wikiPageWikiLink ?o .
+  ?o o:wikiPageWikiLink ?oo .
+  ?oo o:wikiPageWikiLink r:分度器
+ }
+ UNION
+ {
+  r:伊集院光 o:wikiPageWikiLink ?o .
+  ?o o:wikiPageWikiLink ?oo .
+  ?oo o:wikiPageWikiLink ?ooo .
+  ?ooo o:wikiPageWikiLink r:分度器
+ } .
+ FILTER (!regex(str(?o), "/([[:digit:]]{1,4}年|[[:digit:]]{1,2}月[[:digit:]]{1,2}日|日本標準時|[[:digit:]]{1,2}世紀)$") ) .
+ FILTER (!regex(str(?oo), "/([[:digit:]]{1,4}年|[[:digit:]]{1,2}月[[:digit:]]{1,2}日|日本標準時|[[:digit:]]{1,2}世紀)$") ).
+ FILTER (!regex(str(?ooo), "/([[:digit:]]{1,4}年|[[:digit:]]{1,2}月[[:digit:]]{1,2}日|日本標準時|[[:digit:]]{1,2}世紀)$")) .
+}
